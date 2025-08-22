@@ -1,0 +1,15 @@
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/bin/Debug/net8.0/solid-principles
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/bin/Debug/net8.0/solid-principles.deps.json
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/bin/Debug/net8.0/solid-principles.runtimeconfig.json
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/bin/Debug/net8.0/solid-principles.dll
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/bin/Debug/net8.0/solid-principles.pdb
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/solid-principles.GeneratedMSBuildEditorConfig.editorconfig
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/solid-principles.AssemblyInfoInputs.cache
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/solid-principles.AssemblyInfo.cs
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/solid-principles.csproj.CoreCompileInputs.cache
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/solid-principles.sourcelink.json
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/solid-principles.dll
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/refint/solid-principles.dll
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/solid-principles.pdb
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/solid-principles.genruntimeconfig.cache
+/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/Debug/net8.0/ref/solid-principles.dll

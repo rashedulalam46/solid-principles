@@ -62,5 +62,37 @@ Processing PayPal payment for 100.50
 PDF invoice generated for order 123
 Order 123 saved to database.
 ```
+## ❌ Breaking OCP (not open for extension, but modification)
+```csharp
+public class PaymentProcessor
+{
+    public void ProcessPayment(Order order, string paymentType)
+    {
+        if (paymentType == "CreditCard")
+        {
+            Console.WriteLine($"Processing Credit Card payment for {order.Amount}");
+        }
+        else if (paymentType == "PayPal")
+        {
+            Console.WriteLine($"Processing PayPal payment for {order.Amount}");
+        }
+        else if (paymentType == "Bitcoin")
+        {
+            Console.WriteLine($"Processing Bitcoin payment for {order.Amount}");
+        }
+        // ❌ Every time we add a new payment type (Stripe, ApplePay),
+        // we must MODIFY this class → violates OCP
+    }
+}
+```
+Problem:
+
+Adding StripePayment means we must edit PaymentProcessor.
+
+The class keeps growing and becomes harder to maintain.
+
+High chance of introducing bugs while modifying.
+
+
 
 

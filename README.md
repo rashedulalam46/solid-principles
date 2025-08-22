@@ -39,3 +39,29 @@ It applies all **five SOLID principles**:
 
 ---
 
+
+---
+
+## 🚀 Example Run
+
+```csharp
+Order order = new Order { OrderId = "123", Amount = 100.50m };
+
+// Choose payment and invoice types
+IPaymentProcessor payment = new PayPalPayment();
+IInvoiceGenerator invoice = new PdfInvoice();
+
+// Inject dependencies into CheckoutService
+CheckoutService checkout = new CheckoutService(payment, invoice, new OrderRepository());
+
+// Process checkout
+checkout.Checkout(order);
+'''
+
+Output:
+Processing PayPal payment for 100.50
+PDF invoice generated for order 123
+Order 123 saved to database.
+
+
+

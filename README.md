@@ -40,8 +40,6 @@ It applies all **five SOLID principles**:
 ---
 
 
----
-
 ## 🚀 Example Run
 
 ```csharp
@@ -56,12 +54,13 @@ CheckoutService checkout = new CheckoutService(payment, invoice, new OrderReposi
 
 // Process checkout
 checkout.Checkout(order);
-'''
+```
 
-Output:
+## Output
+```csharp
 Processing PayPal payment for 100.50
 PDF invoice generated for order 123
 Order 123 saved to database.
-
+```
 
 

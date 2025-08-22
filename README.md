@@ -39,7 +39,3 @@ It applies all **five SOLID principles**:
 
 ---
 
-## 🏗 Project Structure
-
-.Checkout(order);
-'''

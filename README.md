@@ -62,7 +62,7 @@ Processing PayPal payment for 100.50
 PDF invoice generated for order 123
 Order 123 saved to database.
 ```
-## ❌ Breaking OCP (not open for extension, but modification)
+## 🔴 Breaking OCP (not open for extension, but modification)
 ```csharp
 public class PaymentProcessor
 {
@@ -91,7 +91,80 @@ Adding StripePayment means we must edit PaymentProcessor.
 
 The class keeps growing and becomes harder to maintain.
 
+## 🔴 Breaking LSP Example
 High chance of introducing bugs while modifying.
+```csharp
+public interface IPaymentProcessor
+{
+    void ProcessPayment(Order order);
+}
+```
+Now, imagine we create a GiftCardPayment class but force it to implement ProcessPayment, even though gift cards don’t work like normal payments:
+```csharp
+public class GiftCardPayment : IPaymentProcessor
+{
+    public void ProcessPayment(Order order)
+    {
+        // ❌ GiftCard can’t really process payments like CreditCard/PayPal
+        // So we throw an exception
+        throw new NotSupportedException("GiftCard cannot process payment directly.");
+    }
+}
+
+public void Checkout(Order order)
+{
+    _paymentProcessor.ProcessPayment(order); // ❌ Will crash if GiftCardPayment is used
+}
+```
+Why this breaks LSP?
+
+LSP rule: Subclasses (or implementations) must be usable anywhere the base type is expected.
+
+Here, if we substitute GiftCardPayment for IPaymentProcessor, it throws an exception instead of behaving properly.
+
+Client code (CheckoutService) now has to know special cases → violates LSP.
+
+✅ Fixing LSP
+
+Instead of forcing GiftCardPayment into the wrong interface, we restructure abstractions:
+```csharp
+public interface IPaymentProcessor
+{
+    void ProcessPayment(Order order);
+}
+
+public interface IGiftCardRedemption
+{
+    void RedeemGiftCard(Order order);
+}
+
+public class CreditCardPayment : IPaymentProcessor
+{
+    public void ProcessPayment(Order order)
+    {
+        Console.WriteLine($"Processing Credit Card payment for {order.Amount}");
+    }
+}
+
+public class PayPalPayment : IPaymentProcessor
+{
+    public void ProcessPayment(Order order)
+    {
+        Console.WriteLine($"Processing PayPal payment for {order.Amount}");
+    }
+}
+
+public class GiftCardRedemption : IGiftCardRedemption
+{
+    public void RedeemGiftCard(Order order)
+    {
+        Console.WriteLine($"Redeeming gift card for {order.Amount}");
+    }
+}
+```
+
+
+
 
 
 

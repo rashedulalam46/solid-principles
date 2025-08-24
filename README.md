@@ -86,10 +86,8 @@ public class PaymentProcessor
 }
 ```
 Problem:
-
-Adding StripePayment means we must edit PaymentProcessor.
-
-The class keeps growing and becomes harder to maintain.
+- Adding StripePayment means we must edit PaymentProcessor.
+- The class keeps growing and becomes harder to maintain.
 
 ## 🔴 Breaking LSP Example
 High chance of introducing bugs while modifying.
@@ -117,12 +115,9 @@ public void Checkout(Order order)
 }
 ```
 Why this breaks LSP?
-
-LSP rule: Subclasses (or implementations) must be usable anywhere the base type is expected.
-
-Here, if we substitute GiftCardPayment for IPaymentProcessor, it throws an exception instead of behaving properly.
-
-Client code (CheckoutService) now has to know special cases → violates LSP.
+- LSP rule: Subclasses (or implementations) must be usable anywhere the base type is expected.
+- Here, if we substitute GiftCardPayment for IPaymentProcessor, it throws an exception instead of behaving properly.
+- Client code (CheckoutService) now has to know special cases → violates LSP.
 
 ✅ Fixing LSP
 
@@ -162,7 +157,10 @@ public class GiftCardRedemption : IGiftCardRedemption
     }
 }
 ```
-
+✅ Why this respects LSP?
+- Each implementation behaves correctly without throwing exceptions.
+- GiftCardRedemption is no longer pretending to be a normal payment processor.
+- Substitution works: anywhere you expect IPaymentProcessor, you can safely use CreditCardPayment or PayPalPayment without breaking behavior.
 
 
 

@@ -354,5 +354,51 @@ public class EmailInvoiceGenerator : IEmailInvoiceGenerator
 - Easier to maintain and extend.
 
 
+## 🔴 Breaking DIP
+CheckoutService does depend on abstractions (IPaymentProcessor, IInvoiceGenerator), which is good (follows DIP).
+If it did not depend on abstractions, it would look like this (bad example ❌):
+
+```csharp
+public class CheckoutService
+{
+    private readonly CreditCardPayment _creditCardPayment;
+    private readonly PdfInvoice _pdfInvoice;
+    private readonly OrderRepository _orderRepository;
+
+    public CheckoutService()
+    {
+        // Directly instantiating concrete classes (bad practice)
+        _creditCardPayment = new CreditCardPayment();
+        _pdfInvoice = new PdfInvoice();
+        _orderRepository = new OrderRepository();
+    }
+
+    public void Checkout(Order order)
+    {
+        _creditCardPayment.ProcessPayment(order);
+        _pdfInvoice.GenerateInvoice(order);
+        _orderRepository.Save(order);
+    }
+}
+```
+
+🚨 What’s wrong here?
+
+- Tight coupling → CheckoutService is locked to CreditCardPayment and PdfInvoice.
+- No flexibility → If we want to switch to PayPalPayment or EmailInvoice, we must modify CheckoutService.
+- Hard to test → Can’t mock dependencies easily in unit tests.
+
+✅ Why this version is better:
+- Depends on interfaces (abstractions).
+- Easy to swap different implementations without modifying CheckoutService.
+- Easy to test with mocks.
+
+ ```csharp
+public CheckoutService(IPaymentProcessor paymentProcessor, IInvoiceGenerator invoiceGenerator, OrderRepository orderRepository)
+```
+
+So the difference is:
+- Without DIP → CheckoutService creates and depends on concrete classes.
+- With DIP → CheckoutService depends on interfaces/abstractions provided from outside (injected).
 
 

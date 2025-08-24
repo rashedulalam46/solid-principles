@@ -92,8 +92,57 @@ public class BitcoinPayment : IPaymentProcessor
     }
 }
 ```
+## I - Interface Segregation Principle
+```csh
+// Instead of one big interface, we separate responsibilities.
 
+public interface IInvoiceGenerator
+{
+    void GenerateInvoice(Order order);
+}
 
+public class PdfInvoice : IInvoiceGenerator
+{
+    public void GenerateInvoice(Order order)
+    {
+        Console.WriteLine($"PDF invoice generated for order {order.OrderId}");
+    }
+}
+
+public class EmailInvoice : IInvoiceGenerator
+{
+    public void GenerateInvoice(Order order)
+    {
+        Console.WriteLine($"Invoice emailed for order {order.OrderId}");
+    }
+}
+```
+
+## D - Dependency Inversion Principle
+```csharp
+// High-level modules depend on abstractions, not concretions.
+
+public class CheckoutService
+{
+    private readonly IPaymentProcessor _paymentProcessor;
+    private readonly IInvoiceGenerator _invoiceGenerator;
+    private readonly OrderRepository _orderRepository;
+
+    public CheckoutService(IPaymentProcessor paymentProcessor, IInvoiceGenerator invoiceGenerator, OrderRepository orderRepository)
+    {
+        _paymentProcessor = paymentProcessor;
+        _invoiceGenerator = invoiceGenerator;
+        _orderRepository = orderRepository;
+    }
+
+    public void Checkout(Order order)
+    {
+        _paymentProcessor.ProcessPayment(order);
+        _invoiceGenerator.GenerateInvoice(order);
+        _orderRepository.Save(order);
+    }
+}
+```
 ## 🚀 Example Run
 
 ```csharp

@@ -165,6 +165,17 @@ Processing PayPal payment for 100.50
 PDF invoice generated for order 123
 Order 123 saved to database.
 ```
+
+## ✅ How SOLID is Applied Here:
+
+- SRP → OrderRepository only saves orders, CheckoutService only manages checkout, Invoice classes only handle invoices.
+- OCP → We can add new payments (e.g., StripePayment) without changing existing classes.
+- LSP → Any payment type (CreditCard, PayPal, Bitcoin) can replace IPaymentProcessor without breaking behavior.
+- ISP → Invoices are split (PdfInvoice, EmailInvoice), not forced into one big interface.
+- DIP → CheckoutService depends on abstractions (IPaymentProcessor, IInvoiceGenerator) instead of concrete classes.
+
+  This way, the system is flexible, testable, and extendable.
+
 ## 🔴 Breaking OCP (not open for extension, but modification)
 ```csharp
 public class PaymentProcessor

@@ -162,6 +162,88 @@ public class GiftCardRedemption : IGiftCardRedemption
 - GiftCardRedemption is no longer pretending to be a normal payment processor.
 - Substitution works: anywhere you expect IPaymentProcessor, you can safely use CreditCardPayment or PayPalPayment without breaking behavior.
 
+##  🔴 Breaking ISP
+
+Suppose we design one fat interface that tries to handle every possible invoice format:
+
+```csharp
+public interface IInvoiceGenerator
+{
+    void GeneratePdfInvoice(Order order);
+    void GenerateEmailInvoice(Order order);
+    void GenerateExcelInvoice(Order order);
+}
+```
+
+Now, classes are forced to implement methods they don’t need:
+
+```csharp
+public class PdfInvoiceGenerator : IInvoiceGenerator
+{
+    public void GeneratePdfInvoice(Order order)
+    {
+        Console.WriteLine($"PDF invoice generated for order {order.OrderId}");
+    }
+
+    public void GenerateEmailInvoice(Order order)
+    {
+        // ❌ Not applicable → forced to implement
+        throw new NotImplementedException();
+    }
+
+    public void GenerateExcelInvoice(Order order)
+    {
+        // ❌ Not applicable → forced to implement
+        throw new NotImplementedException();
+    }
+}
+```
+🚨 Why this breaks ISP?
+
+- Classes should not be forced to depend on methods they don’t use.
+- Here, PdfInvoiceGenerator only cares about PDF, but is forced to implement email and Excel too.
+- Any change in IInvoiceGenerator impacts all implementations unnecessarily.
+
+- ✅ Fixing ISP
+
+Split the interface into smaller, more specific interfaces:
+
+```csharp
+public interface IPdfInvoiceGenerator
+{
+    void GeneratePdfInvoice(Order order);
+}
+
+public interface IEmailInvoiceGenerator
+{
+    void GenerateEmailInvoice(Order order);
+}
+
+public interface IExcelInvoiceGenerator
+{
+    void GenerateExcelInvoice(Order order);
+}
+```
+Now, each implementation only does what it should:
+
+```csharp
+public class PdfInvoiceGenerator : IPdfInvoiceGenerator
+{
+    public void GeneratePdfInvoice(Order order)
+    {
+        Console.WriteLine($"PDF invoice generated for order {order.OrderId}");
+    }
+}
+
+public class EmailInvoiceGenerator : IEmailInvoiceGenerator
+{
+    public void GenerateEmailInvoice(Order order)
+    {
+        Console.WriteLine($"Invoice emailed for order {order.OrderId}");
+    }
+}
+```
+
 
 
 

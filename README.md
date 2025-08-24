@@ -244,7 +244,11 @@ public class EmailInvoiceGenerator : IEmailInvoiceGenerator
 }
 ```
 
+✅ Why this respects ISP?
 
+-  Each class depends only on what it really needs.
+- No unnecessary throw new NotImplementedException().
+- Easier to maintain and extend.
 
 
 

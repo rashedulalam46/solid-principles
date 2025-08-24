@@ -39,6 +39,60 @@ It applies all **five SOLID principles**:
 
 ---
 
+## S - Single Responsibility Principle
+```csharp
+// Each class has only one reason to change.
+public class Order
+{
+    public string OrderId { get; set; }
+    public decimal Amount { get; set; }
+}
+
+public class OrderRepository
+{
+    public void Save(Order order)
+    {
+        Console.WriteLine($"Order {order.OrderId} saved to database.");
+    }
+}
+```
+
+## O - Open/Closed Principle
+```csharp
+// Add new payment methods without modifying existing logic.
+public interface IPaymentProcessor
+{
+    void ProcessPayment(Order order);
+}
+
+public class CreditCardPayment : IPaymentProcessor
+{
+    public void ProcessPayment(Order order)
+    {
+        Console.WriteLine($"Processing Credit Card payment for {order.Amount}");
+    }
+}
+
+public class PayPalPayment : IPaymentProcessor
+{
+    public void ProcessPayment(Order order)
+    {
+        Console.WriteLine($"Processing PayPal payment for {order.Amount}");
+    }
+}
+```
+## L - Liskov Substitution Principle
+```csharp
+// Subtypes (payment methods) can replace the parent type (IPaymentProcessor).
+public class BitcoinPayment : IPaymentProcessor
+{
+    public void ProcessPayment(Order order)
+    {
+        Console.WriteLine($"Processing Bitcoin payment for {order.Amount}");
+    }
+}
+```
+
 
 ## 🚀 Example Run
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/solid-principles.csproj": {}
+    "/Users/Rashed/My Files/Projects/Github/solid-principles/solid-principles/solid-principles.csproj": {}
   },
   "projects": {
-    "/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/solid-principles.csproj": {
+    "/Users/Rashed/My Files/Projects/Github/solid-principles/solid-principles/solid-principles.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/solid-principles.csproj",
+        "projectUniqueName": "/Users/Rashed/My Files/Projects/Github/solid-principles/solid-principles/solid-principles.csproj",
         "projectName": "solid-principles",
-        "projectPath": "/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/solid-principles.csproj",
-        "packagesPath": "/Users/rashedulalam/.nuget/packages/",
-        "outputPath": "/Users/rashedulalam/My Files/Projects/Github/solid-principles/solid-principles/obj/",
+        "projectPath": "/Users/Rashed/My Files/Projects/Github/solid-principles/solid-principles/solid-principles.csproj",
+        "packagesPath": "/Users/Rashed/.nuget/packages/",
+        "outputPath": "/Users/Rashed/My Files/Projects/Github/solid-principles/solid-principles/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/rashedulalam/.nuget/NuGet/NuGet.Config"
+          "/Users/Rashed/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
